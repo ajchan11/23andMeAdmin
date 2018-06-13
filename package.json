@@ -1,0 +1,17 @@
+{
+  "name": "kraken",
+  "version": "1.0.0",
+  "description": "",
+  "main": "code-playground.config.js",
+  "dependencies": {
+    "coffeekraken-code-playground": "^1.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+		"demo": "coffeekraken-code-playground"
+	},
+  "keywords": [
+  ],
+  "author": "",
+  "license": "ISC"
+}
