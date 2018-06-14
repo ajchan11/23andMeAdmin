@@ -11,6 +11,7 @@ const __md5 = require('md5');
 const __Cryptr = require('cryptr');
 const __cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
+const rimraf = require('rimraf');
 
 
 module.exports = function(config) {
@@ -280,35 +281,13 @@ module.exports = function(config) {
 		var body = req.body.data
 		console.log('title', body.title)
 		var dirname = `./views/${body.title}`
-		__fs.mkdirSync(dirname)
-		__fs.appendFile(`${dirname}/app.js`, body.js, () => {
-			__fs.appendFile(`${dirname}/main.css`, body.css, () => {
-				var base = 
-				`<head>
-					<meta charset="UTF-8">
-					<title>Test</title>
-					<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-					<meta name="format-detection" content="telephone=no">
-					<meta name="msapplication-tap-highlight" content="no">
-				
-					<link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
-					<link rel="manifest" href="manifest.json">
-					<meta name="theme-color" content="#4e8ef7">
-				
-					<!-- add to homescreen for ios -->
-					<meta name="apple-mobile-web-app-capable" content="yes">
-					<meta name="apple-mobile-web-app-status-bar-style" content="black">
-				
-					<script src="/views/${body.title}/app.js"></script>
-					<link href="/views/${body.title}/main.css" rel="stylesheet">
-				
-				</head>`
-				base += body.html
-				__fs.appendFile(`${dirname}/index.html`, base, () => {
-					return res.send({status: 200, message: 'success'});
-				});
+		if (__fs.existsSync(dirname)) {
+			rimraf(dirname, function () { 
+				make(res, dirname, body) 
 			});
-		});
+		} else {
+			make(res, dirname, body) 
+		}
 	});
 
 	console.log(`Code Playground : ...starting on port ${config.port}...`);
@@ -319,3 +298,36 @@ module.exports = function(config) {
 		console.log(`Code Playground : access interface on http://localhost:${config.port}`);
 	});
 }
+
+function make(res, dirname, body) {
+	__fs.mkdirSync(dirname)
+	__fs.appendFile(`${dirname}/app.js`, body.js, () => {
+		__fs.appendFile(`${dirname}/main.css`, body.css, () => {
+			var base = 
+			`<head>
+				<meta charset="UTF-8">
+				<title>Test</title>
+				<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+				<meta name="format-detection" content="telephone=no">
+				<meta name="msapplication-tap-highlight" content="no">
+			
+				<link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
+				<link rel="manifest" href="manifest.json">
+				<meta name="theme-color" content="#4e8ef7">
+			
+				<!-- add to homescreen for ios -->
+				<meta name="apple-mobile-web-app-capable" content="yes">
+				<meta name="apple-mobile-web-app-status-bar-style" content="black">
+			
+				<script src="/views/${body.title}/app.js"></script>
+				<link href="/views/${body.title}/main.css" rel="stylesheet">
+			
+			</head>`
+			base += body.html
+			__fs.appendFile(`${dirname}/index.html`, base, () => {
+				return res.send({status: 200, message: 'success'});
+			});
+		});
+	});
+}
+	
