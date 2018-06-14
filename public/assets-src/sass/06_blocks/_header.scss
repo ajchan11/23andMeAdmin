@@ -1,0 +1,22 @@
+/**
+ * Header styling
+ */
+.header {
+	background: s-color(secondary, -darken 5%);
+	color:white;
+	position: relative;
+	z-index:21;
+
+	.row {
+		margin-left:0;
+	}
+	[class*="gr-"] {
+		height: s-rem(50px);
+	}
+}
+	.header__title {
+		color: white;
+	}
+	.header__logo {
+		height:30px;
+	}

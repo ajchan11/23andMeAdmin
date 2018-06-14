@@ -1,3 +1,8 @@
+# ```code-playground.config.js``` reference
+
+Here's the full reference of options available for the ```code-playground.config.js``` file :
+
+```js
 module.exports = {
 	// server port
 	port : 3000,
@@ -65,18 +70,29 @@ module.exports = {
 
 		// css editor
 		css : {
-			language : 'css', // available : css / sass / scss / stylus
+			language : 'sass', // available : css / sass / scss / stylus
 			data : `
+				@import 'node_modules/coffeekraken-sugar/index';
+				@include s-init();
+				@include s-classes();
 
 				body {
 					background: linear-gradient(to left, #f46b45 , #eea849);
 				}
+				.container {
+					@include s-position(absolute, middle, center);
+				}
 				.card {
 					max-width : 400px;
+					@include s-depth(2);
 					background: white;
+
+					&:hover {
+						@include s-depth(20);
+					}
 				}
 				.card__content {
-					padding: 40px;
+					padding: s-rem(40px);
 					transform:translate3d(0,0,20px);
 				}
 			`
@@ -91,3 +107,4 @@ module.exports = {
 		}
 	}
 }
+```

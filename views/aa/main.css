@@ -1,0 +1,11 @@
+body {
+	background: linear-gradient(to left, #f46b45 , #eea849);
+}
+.card {
+	max-width : 400px;
+	background: white;
+}
+.card__content {
+	padding: 40px;
+	transform:translate3d(0,0,20px);
+}

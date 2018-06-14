@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>{{title}}</title>
+	{{#if packageJson.description}}
+		<meta name="description" content="{{packageJson.description}}" />
+	{{/if}}
+	{{#if packageJson.keywords}}
+		<meta name="keywords" content="{{packageJson.keywords}}" />
+	{{/if}}
+	{{#if packageJson.repository}}
+		<link rel="canonical" href="{{packageJson.repository.url}}" />
+	{{/if}}
+	<link rel="stylesheet" href="/assets/css/style.css" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-base.css" />
+</head>
+<body>
+
+	<header class="header">
+		<div class="row row-align-middle">
+			<div class="gr-adapt">
+				<div class="dropdown dropdown--primary">
+					<h1 class="h5 header__title">
+						{{#if apps}}
+							&nbsp;<i style="font-size:.8em" class="fa fa-caret-down"></i>&nbsp;
+						{{/if}}
+						<input id="textInput" type="text"></input>
+						<button id="submitButton" >Submit</button>
+					</h1>
+				</div>
+			</div>
+			<div class="gr-grow">
+			</div>
+		</div>
+	</header>
+
+	{{#each editors}}
+		{{#if this}}
+			<template id="{{ this.language }}">
+				<s-codemirror
+					{{#if this.accept }} accept="{{this.accept}}" {{/if}}
+					{{#if this.updateOn }} update-on="{{this.updateOn}}" {{/if}}
+					update-timeout="2000"
+					id="{{this.language}}"
+					title="{{this.title}}"
+					language="{{ this.language }}">
+					<template>
+						{{{this.data}}}
+					</template>
+				</s-codemirror>
+			</template>
+		{{/if}}
+	{{/each}}
+
+	<s-interactive-demo layout="{{ config.layout }}" display-toggles="false">
+		<div s-interactive-demo-preview></div>
+	</s-interactive-demo>
+
+	<footer class="footer">
+	</footer>
+
+	<script>
+		window.app = {
+			pwd : '{{pwd}}',
+			compileServer : '{{{compileServerSettings}}}'
+		};
+	</script>
+	<script src="/assets/js/app.js"></script>
+
+</body>
+</html>

@@ -1,17 +1,119 @@
 {
-  "name": "kraken",
-  "version": "1.0.0",
-  "description": "",
-  "main": "code-playground.config.js",
-  "dependencies": {
-    "coffeekraken-code-playground": "^1.0.4"
+  "_from": "coffeekraken-code-playground",
+  "_id": "coffeekraken-code-playground@1.0.4",
+  "_inBundle": false,
+  "_integrity": "sha512-KESAyn1sokWzle51DHj0tZkwViwXzcb1/cIjzx3KKhmUq/yK1Q8SwIf199RVeRnIKPVXjc7y3JIYASC48MInKA==",
+  "_location": "/coffeekraken-code-playground",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "coffeekraken-code-playground",
+    "name": "coffeekraken-code-playground",
+    "escapedName": "coffeekraken-code-playground",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
   },
-  "devDependencies": {},
-  "scripts": {
-		"demo": "coffeekraken-code-playground"
-	},
-  "keywords": [
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
   ],
-  "author": "",
-  "license": "ISC"
+  "_resolved": "https://registry.npmjs.org/coffeekraken-code-playground/-/coffeekraken-code-playground-1.0.4.tgz",
+  "_shasum": "858c362c74de690f2d57a9ec6334fe848cde810c",
+  "_spec": "coffeekraken-code-playground",
+  "_where": "/Users/mb0029/Documents/Demo/23me",
+  "author": {
+    "name": "Coffeekraken",
+    "email": "hello@coffeekraken.io"
+  },
+  "bin": {
+    "coffeekraken-code-playground": "./bin/coffeekraken-code-playground"
+  },
+  "bugs": {
+    "url": "https://github.com/coffeekraken/code-playground/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Olivier Bossel",
+      "email": "olivier.bossel@gmail.com",
+      "url": "http://olivierbossel.com"
+    }
+  ],
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "codemirror": "^5.22.0",
+    "coffeekraken-compile-server": "^1.0.0",
+    "coffeekraken-gridle": "3.0.0-rc.4",
+    "coffeekraken-s-atv-card-component": "^1.0.0",
+    "coffeekraken-s-codemirror-component": "^1.0.0",
+    "coffeekraken-s-dialog-component": "^1.0.0",
+    "coffeekraken-s-interactive-demo-component": "^1.0.0",
+    "coffeekraken-s-notification-component": "^1.0.0",
+    "coffeekraken-s-share-component": "^1.0.0",
+    "coffeekraken-sugar": "^1.0.0",
+    "cookie-session": "^2.0.0-beta.1",
+    "cryptr": "^2.0.0",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "golden-layout": "^1.5.7",
+    "imagemin-cli": "^3.0.0",
+    "lodash": "^4.17.2",
+    "md5": "^2.2.1",
+    "node-parallel": "^0.1.6",
+    "webcomponents.js": "^0.7.23"
+  },
+  "deprecated": false,
+  "description": "Provide a nice code playground that let you play with some html, javascript (coffee, typescript, etc...) and css (sass, scss, stylus, etc...)",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-env": "^1.6.1",
+    "coffeekraken-testing-stack": "0.0.2",
+    "concurrently": "^3.1.0",
+    "node-sass": "^3.13.0",
+    "nodemon": "^1.11.0",
+    "open": "0.0.5",
+    "vinyl-named": "^1.1.0",
+    "webpack": "^1.14.0"
+  },
+  "homepage": "http://coffeekraken.io",
+  "keywords": [
+    "code",
+    "playground",
+    "interface",
+    "web",
+    "node",
+    "js",
+    "npm",
+    "express",
+    "doc",
+    "customize",
+    "sugar",
+    "coffeekraken",
+    "coffee",
+    "kraken"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "coffeekraken-code-playground",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coffeekraken/code-playground.git"
+  },
+  "scripts": {
+    "assets": "npm run assets.css && npm run assets.js && npm run assets.img",
+    "assets.css": "node-sass public/assets-src/sass/style.scss public/assets/css/style.css --include-path node_modules --output-style compact",
+    "assets.img": "imagemin public/assets-src/img/* --out-dir=public/assets/img",
+    "assets.js": "webpack",
+    "assets.watch": "concurrently --kill-others \"npm run assets.watch.css\" \"npm run assets.watch.js\"",
+    "assets.watch.css": "nodemon -w public/assets-src -e scss -x \"npm run assets.css\"",
+    "assets.watch.js": "nodemon -w public/assets-src -e js -x \"npm run assets.js\"",
+    "demo": "./bin/coffeekraken-code-playground",
+    "start": "concurrently --kill-others \"npm run assets.watch\" \"npm run demo\"",
+    "test": "coffeekraken-testing-stack"
+  },
+  "version": "1.0.4"
 }
