@@ -318,7 +318,8 @@ function make(res, dirname, body) {
 				<!-- add to homescreen for ios -->
 				<meta name="apple-mobile-web-app-capable" content="yes">
 				<meta name="apple-mobile-web-app-status-bar-style" content="black">
-			
+				<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
 				<script src="/views/${body.title}/app.js"></script>
 				<link href="/views/${body.title}/main.css" rel="stylesheet">
 			

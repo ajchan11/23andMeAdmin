@@ -43,23 +43,38 @@ module.exports = {
 		html : {
 			language : 'html',
 			data : `
-				<div class="container">
-					<s-atv-card>
-						<article class="card">
-	 						<figure class="ratio-16-9">
-								<img class="abs-cover" src="http://coffeekraken.io/dist/img/contribute-issues.jpg" />
-							</figure>
-							<div class="card__content">
-								<h1 class="h3 m-b">
-									Hello World
-								</h1>
-								<p class="p">
-									This is the code-playground demo of the code-playground tool.
-								</p>
-							</div>
-						</article>
-					</s-atv-card>
+				<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+				<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+				<script id="mustacheTempalte_a" type="text/template">
+				<div class="item">
+					<h1>Upcoming Shows</h1>
+					{{#shows}}
+						<ul>
+							<li><strong>Title:</strong> {{title}}</li>
+							<li><strong>Description:</strong> {{{description}}}</li>
+							<li><strong>Video:</strong> {{video}}</li>
+							<li><strong>Category:</strong> {{category}}</li>
+						</ul>
+					{{/shows}}
 				</div>
+				</script>
+
+				<script id="mustacheTempalte_b" type="text/template">
+				<div class="item">
+					<h1>Upcoming Shows</h1>
+					{{#shows}}
+						<ul>
+							<li><strong>Title:</strong> {{title}}</li>
+							<li><strong>Description:</strong> {{{description}}}</li>
+							<li><strong>Video:</strong> {{video}}</li>
+							<li><strong>Category:</strong> {{category}}</li>
+						</ul>
+					{{/shows}}
+				</div>
+				</script>
+
+
+				<div class="target-output" data-template-chosen="a"></div>
 			`
 		},
 
@@ -86,7 +101,22 @@ module.exports = {
 		js : {
 			language : 'js', // available : js / coffeescript / typescript
 			data : `
-				import 'webcomponents.js/webcomponents-lite'
+			window.onload = function() {
+				var targetContainer = $(".target-output"),
+					templateDefined = $(".target-output").data("template-chosen"),
+					template = $("#mustacheTempalte_" + templateDefined).html();
+				var shows = { "shows": [{ "category": "children",
+						"description": "<a>A show</a> about a cake",
+						"title": "Strawberry Shortcake",
+						"video": "none"
+					}, { "category": "children",
+						"description": "A show about a ice",
+						"title": "Vanilla Ice",
+						"video": "none"
+					}] };
+				var html = Mustache.to_html(template, shows);
+				$(targetContainer).html(html);
+			}
 			`
 		}
 	}

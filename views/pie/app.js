@@ -70,13 +70,13 @@
 /* 0 */
 /***/ (function(module, exports) {
 
-$(document).ready(function () {
+window.onload = function () {
 	var targetContainer = $(".target-output"),
 	    templateDefined = $(".target-output").data("template-chosen"),
 	    template = $("#mustacheTempalte_" + templateDefined).html();
 	var shows = { "shows": [{ "category": "children",
 			"description": "<a>A show</a> about a cake",
-			"title": "Strawberry Shortcake",
+			"title": "Strawberry SHORT PIEEEEEEE",
 			"video": "none"
 		}, { "category": "children",
 			"description": "A show about a ice",
@@ -85,7 +85,7 @@ $(document).ready(function () {
 		}] };
 	var html = Mustache.to_html(template, shows);
 	$(targetContainer).html(html);
-});
+};
 
 /***/ })
 /******/ ]);

@@ -70,7 +70,7 @@
 /* 0 */
 /***/ (function(module, exports) {
 
-$(document).ready(function () {
+window.onload = function (e) {
 	var targetContainer = $(".target-output"),
 	    templateDefined = $(".target-output").data("template-chosen"),
 	    template = $("#mustacheTempalte_" + templateDefined).html();
@@ -85,7 +85,7 @@ $(document).ready(function () {
 		}] };
 	var html = Mustache.to_html(template, shows);
 	$(targetContainer).html(html);
-});
+};
 
 /***/ })
 /******/ ]);

@@ -1,7 +1,6 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-var tempSend;
 
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -1196,7 +1195,7 @@ var tempSend;
 	  // html.removeChild(iframe);
 	  iframeDocument = iframe.contentWindow.document;
 	  iframeDocument.open();
-	  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+		iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
 	  iframeDocument.close();
 	  createDict = iframeDocument.F;
 	  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
@@ -52008,9 +52007,13 @@ var tempSend;
 				this._refs.iframe.width = '100%';
 				this._refs.iframe.setAttribute('frameborder', 'no');
 
+
+
 				// append elements
 				this._refs.preview.appendChild(this._refs.iframe);
 				this._refs.preview.appendChild(this._refs.previewLoader);
+				
+
 				if (this.props.displayToggles) {
 					this._refs.previewContainer.appendChild(this._refs.header);
 				}
@@ -52018,7 +52021,7 @@ var tempSend;
 				if (!this._refs.previewContainer.parentNode) {
 					this.appendChild(this._refs.previewContainer);
 				}
-
+				$("#iframe").contents().find("body").append(this._refs.jqueryStuff);
 				// listen for compilations
 				this.addEventListener('compileStart', this._onCompileStart.bind(this));
 				this.addEventListener('compileEnd', this._onCompileEnd.bind(this));
@@ -52184,6 +52187,18 @@ var tempSend;
 					// append the new code into container
 					_this3._iframeRefs.body.querySelector('#' + editorId).appendChild(codeElm);
 				});
+
+				this._refs.jqueryStuff = document.createElement('script');
+				this._refs.jqueryStuff.src = "https://code.jquery.com/jquery-3.3.1.min.js";
+
+				this._refs.mustache = document.createElement('script');
+				this._refs.mustache.src = "https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js";
+				
+				_this3._iframeRefs.document.getElementsByTagName('head')[0].appendChild(this._refs.jqueryStuff)
+				_this3._iframeRefs.document.getElementsByTagName('head')[0].appendChild(this._refs.mustache)
+
+				var old = _this3._iframeRefs.document
+				console.log('old', old)
 
 				// update preview size
 				if (this.props.resizePreview) {
