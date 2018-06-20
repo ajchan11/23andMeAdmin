@@ -76,7 +76,7 @@ window.onload = function () {
 	    template = $("#mustacheTempalte_" + templateDefined).html();
 	var shows = { "shows": [{ "category": "children",
 			"description": "<a>A show</a> about a cake",
-			"title": "Strawberry NUTS",
+			"title": "Strawberry Shortcake",
 			"video": "none"
 		}, { "category": "children",
 			"description": "A show about a ice",

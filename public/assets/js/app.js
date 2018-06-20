@@ -35207,6 +35207,7 @@
 					}),
 					contentType: 'application/json'
 				});
+				alert("Files saved and route created")
 				resolve(ajx.send());
 			});
 		})
