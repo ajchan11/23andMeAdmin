@@ -1,5 +1,6 @@
 .cm-s-material {
 	background: s-color(secondary) !important;
+	
 }
 .CodeMirror-gutters {
 	background: s-color(secondary, -darken 1%) !important;
@@ -11,9 +12,22 @@
 s-codemirror {
 	height:100%;
 }
+.s-interactive-demo__preview { 
+	background-image: url("../img/iphone.png"); 
+	background-position: center; 
+	background-repeat: no-repeat; 
+}
 .s-interactive-demo__preview-container {
-	height: 100% !important;
+	height: 100% !important; 
+	background: black;
 }
 .s-interactive-demo__preview-container iframe {
-	height: auto !important;
+	height: 546px !important;
+	 width: 306px !important;
+	 flex: none;
+	 position: absolute;
+	 left: 50%;
+	 margin-left: -153px;
+	 top: 50%;
+	 margin-top: -286px
 }
