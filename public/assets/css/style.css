@@ -1129,9 +1129,9 @@ s-codemirror { height: 100%; }
 
 .s-interactive-demo__preview { background-image: url("../img/iphone.png"); background-position: center; background-repeat: no-repeat; }
 
-.s-interactive-demo__preview-container { height: 100% !important; background: black;}
+.s-interactive-demo__preview-container { height: 100% !important; background: black; }
 
-.s-interactive-demo__preview-container iframe { height: 546px !important; width: 306px !important; flex: none; position: absolute; left: 50%; margin-left: -153px; top: 50%; margin-top: -286px}
+.s-interactive-demo__preview-container iframe { height: 546px !important; width: 306px !important; flex: none; position: absolute; left: 50%; margin-left: -153px; top: 50%; margin-top: -286px; }
 
 /** Objects All the objects styling. An object response to the same rules has the blocks, unless they cannot contain any other objects or blocks. */
 /** Objects All the objects styling. An object response to the same rules has the blocks, unless they cannot contain any other objects or blocks. */
