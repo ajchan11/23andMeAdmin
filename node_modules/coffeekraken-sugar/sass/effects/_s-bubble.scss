@@ -1,0 +1,54 @@
+/**
+ * Create an arrow bubble effect
+ *
+ * @param 		{String} 			[$side=bottom] 				The side (top,right,bottom,left)
+ * @param 		{String} 			[$align=center] 			The alignement (left,center,right,top,middle,bottom)
+ * @param 		{Number} 			[$size=10px] 				The size of the arrow
+ * @param 		{Color} 			[$color=s-color(primary)] 	The color of the bubble
+ * @param 		{Number} 			[$arrow-offset=10px] 		The arrow offset from the side of the bubble
+ * @param 		{Number} 			[$border-width=0] 			The border width of the bubble
+ * @param 		{Color} 			[$border-color=null] 		The border color of the bubble
+ *
+ * @example
+ * .my-cool-bubble {
+ * 		\@include s-bubble(
+ * 			$color : s-color(secondary)
+ * 		);
+ * 		color : white;
+ * }
+ *
+ * @see 			https://codepen.io/kirkas/pen/otqyJ
+ * @author 			Olivier Bossel <olivier.bossel@gmail.com>
+ */
+@mixin s-bubble(
+	$side : bottom,
+	$align : center,
+	$size : 10px,
+	$color : s-color(primary),
+	$arrow-offset : 10px,
+	$border-width : 0,
+	$border-color : null
+) {
+	@if $_sugar-test-arguments {
+		$side : s-test-argument('s-bubble','side',(top,right,bottom,left),$side);
+		$align : s-test-argument('s-bubble','align',(left,center,right,top,middle,bottom),$align);
+		$size : s-test-argument('s-bubble','size',number,$size);
+		$color : s-test-argument('s-bubble','color',color,$color);
+		$arrow-offset : s-test-argument('s-bubble','arrow-offset',number,$arrow-offset);
+		$border-width : s-test-argument('s-bubble','border-width',number,$border-width);
+		$border-color : s-test-argument('s-bubble','border-color',color,$border-color);
+	}
+
+	// create the bubble
+	@include _arrow($side, $align, $size, $color, $arrow-offset, $border-color, $border-width);
+
+	position: relative;
+	background: $color;
+	border-style : solid;
+	@if $border-width {
+		border-width : $border-width;
+	}
+	@if $border-color {
+		border-color : $border-color;
+	}
+}

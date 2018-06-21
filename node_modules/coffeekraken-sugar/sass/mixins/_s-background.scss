@@ -1,0 +1,141 @@
+/**
+ * Helper mixin to set a background image
+ *
+ * @param 			{String} 				[$repeat=null] 				The background-repeat property
+ * @param 			{String} 				[$size=null] 				The background-size property
+ * @param 			{String} 				[$attachment=null] 			The background-attachment property
+ * @param 			{String} 				[$blend-mode=null] 			The background-blend-mode property
+ * @param 			{String} 				[$clip=null] 				The background-clip property
+ * @param 			{String} 				[$url=null] 				The background-image url property
+ * @param 			{Number} 				[$width=null] 				The background-size width property
+ * @param 			{Number} 				[$height=null] 				The background-size height property
+ * @param 			{Number} 				[$top=null] 				The background-position top property
+ * @param 			{Number} 				[$left=null] 				The background-position left property
+ * @param 			{String} 				[$suffix2x=@2x] 			The suffix to add the the url if the 2x resolution if wanted
+ * @param 			{String} 				[$suffix3x=@3x] 			The suffix to add the the url if the 3x resolution if wanted
+ * @param 			{String} 				[$suffix4x=@4x] 			The suffix to add the the url if the 4x resolution if wanted
+ * @param 			{List} 					[$resolution=null] 			The resolution wanted like 2x, 3x and 4x
+ * @param 			{List} 					[$position=null] 			The background-position property
+ *
+ * @example
+ * .my-cool-element {
+ * 		\@include s-background(
+ * 			$url : 'img/my-cool-image.jpg',
+ * 			$size : cover,
+ * 			resolution : 2x 3x 4x
+ * 		);
+ * }
+ *
+ * @author 			Olivier Bossel <olivier.bossel@gmail.com>
+ */
+@mixin s-background(
+	$repeat : null,
+	$size : null,
+	$attachment : null,
+	$blend-mode : null,
+	$clip : null,
+	$origin : null,
+	$url : null,
+	$width : null,
+	$height : null,
+	$top : null,
+	$left : null,
+	$suffix2x : '@2x',
+	$suffix3x : '@3x',
+	$suffix4x : '@4x',
+	$resolution : null,
+	$position : null
+) {
+	@if $_sugar-test-arguments {
+		$repeat : s-test-argument('s-background','repeat',(repeat,repeat-x,repeat-y,no-repeat),$repeat);
+		$size : s-test-argument('s-background','size',(auto,length,cover,contain,initial,inherit),$size);
+		$attachment : s-test-argument('s-background','attachment',(scroll,fixed,local,initial,inherit),$attachment);
+		$blend-mode : s-test-argument('s-background','blend-mode',(normal,multiply,screen,overlay,darken,lighten,color-dodge,saturation,color,luminosity),$blend-mode);
+		$clip : s-test-argument('s-background','clip',(border-box,padding-box,content-box,initial,inherit),$clip);
+		$origin : s-test-argument('s-background','origin',(padding-box,border-box,content-box,initial,inherit),$origin);
+		$url : s-test-argument('s-background','url',string,$url);
+		$width : s-test-argument('s-background','width',number,$width);
+		$height : s-test-argument('s-background','height',number,$height);
+		$resolution : s-test-argument('s-background','resolution','string|list-string',$resolution);
+		$position : s-test-argument('s-background','position',mixed,$position);
+	}
+
+	// manage resolutions
+	@if index($resolution,'2x') {
+		$x2 : true;
+	}
+	@if index($resolution,'3x') {
+		$x3 : true;
+	}
+	@if index($resolution,'4x') {
+		$x4 : true;
+	}
+
+	// build background
+	$back : ();
+	@if $repeat {
+		background-repeat: $repeat;
+	}
+	@if $size {
+		background-size: $size;
+	} @else {
+		@if $height and $width == null {
+			background-size: 0 $height;
+		} @else if $height == null and $width {
+			background-size: $width 0;
+		} @else if $height and $width {
+			background-size: $width $height
+		}
+	}
+	@if $url {
+		background-image: url("#{$url}");
+	}
+	@if $position {
+		background-position: $position;
+	} @else {
+		@if $top and $left == null {
+			background-position: 0 $top;
+		} @else if $top == null and $left {
+			background-position: $left 0;
+		} @else if $top and $left {
+			background-position: $left $top
+		}
+	}
+
+	// resolutions
+	$split : _split($url,'.');
+	$name : nth($split, length($split)-1);
+	@if index($resolution,'2x') and $url {
+		$split : set-nth($split, length($split)-1, #{$name}#{$suffix2x});
+		$url : _join($split, '.');
+		@include s-media($resolution : 2x) {
+			background-image: url("#{$url}");
+		}
+	}
+	@if $x3 and $url {
+		$split : set-nth($split, length($split)-1, #{$name}#{$x3});
+		$url : _join($split, '.');
+		@include s-media($resolution : 3x) {
+			background-image: url("#{$url}");
+		}
+	}
+	@if $x4 and $url {
+		$split : set-nth($split, length($split)-1, #{$name}#{$x4});
+		$url : _join($split, '.');
+		@include s-media($resolution : 4x) {
+			background-image: url("#{$url}");
+		}
+	}
+	@if $attachment {
+		background-attachment : $attachment;
+	}
+	@if $blend-mode {
+		background-blend-mode : $blend-mode;
+	}
+	@if $clip {
+		background-clip : $clip;
+	}
+	@if $origin {
+		background-origin : $origin;
+	}
+}

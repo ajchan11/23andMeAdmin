@@ -1,0 +1,52 @@
+/**
+ * Take a filter as parameter and parse it to return the {Map} corresponding
+ * The $filter parameter can be either a registered filter name or a filter formated like `filterName(filterValue)`
+ *
+ * @param 			{List}<String> 			$filter 			The registered filter name or the filter string to transform into map
+ * @return 			{Map} 										The corresponding filter map properties
+ *
+ * @example
+ * // register a filter
+ * \@include s-setup((
+ * 		filters : (
+ * 			myCoolFilter : box-shadow(#000 0 0 10px) blur(30px),
+ * 			// other filters...
+ * 		)
+ * ));
+ *
+ * // registered filter
+ * s-filter-map(myCoolFilter);
+ * // {
+ * // 	box-shadow : #000 0 0 10px,
+ * // 	blur : 30px
+ * // }
+ *
+ * // custom filter
+ * s-filter-map(blur(10px));
+ * // {
+ * // 	blur : 10px
+ * // }
+ *
+ * @author 			Olivier Bossel <olivier.bossel@gmail.com>
+ */
+@function s-filter-map(
+	$filter
+) {
+	$filters : map-keys(s-setting('filters'));
+	$map : ();
+	@each $f in $filter {
+		// check if the filter exist in registered ones
+		@if type-of($f) == string and index($filters,$f) {
+			// we have a filter
+			$map : map-merge($map, s-filter-map(s-setting('filters.#{$f}')));
+		} @else {
+			// split the filter
+			$open_idx : str-index($f,'(');
+			$f_name : str-slice($f,1,$open_idx - 1);
+			$f_value : str-slice($f,$open_idx+1,-2);
+			$f_value : _split($f_value,' ');
+			$map : map-set($map,$f_name,s-replace-tokens($f_value));
+		}
+	}
+	@return $map;
+}

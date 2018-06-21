@@ -1,0 +1,79 @@
+/**
+ * Return the specified or calculated value of the given stack and size
+ * depending on the settings.sizes ratios stack
+ *
+ * @param 		{Map} 			$stack 			The stack from which to interpolate the value
+ * @param 		{String} 		$size 			The size wanted (has to exist in the settings.sizes stack)
+ * @return 		{Number} 						The $stack.$size value or the interpolated one depending on the settings.sizes ratios
+ *
+ * @example
+ *
+ * // settings.sizes
+ * \@include s-setup((
+ * 		sizes : (
+ * 			small : 0.5,
+ * 			default : 1, // default is ALWAYS 1
+ * 			big : 1.5
+ * 		)
+ * ));
+ *
+ * $myStack : (
+ * 		default : 3rem,
+ * 		big : 6rem
+ * )
+ *
+ * s-interpolate($myStack, big) // 6rem cause specified in the $myStack value
+ * s-interpolate($myStack, small) // 1.5rem => calculated like : 3rem * 0.5 = 1.5rem
+ *
+ * @author 			Olivier Bossel <olivier.bossel@gmail.com>
+ */
+@function s-interpolate(
+	$stack,
+	$size
+) {
+	@if not $stack or type-of($stack) != string {
+		@error('The value "#{$stack}" is not a settings path');
+	}
+
+	// get the value
+	$value : s('#{$stack}.#{$size}');
+
+	// if we have a value with units, return
+	@if $value and not unitless($value) {
+		@return $value;
+	}
+
+	// get what we need to interpolate the value
+	$ratio : s-setting('sizes.#{$size}');
+	$default-size : s('#{$stack}.default');
+
+	// if the getted value is a unitless one, mean that it's the ratio to use
+	// to interpolate the default stack value
+	@if $value and unitless($value) {
+		$ratio : $value;
+	}
+
+	// protect
+	@if not $default-size {
+		@error("You need to specify a #{$stack}.default setting...");
+	}
+	@if not unit($default-size) {
+		@error("Your #{$stack}.default has to have a unit like rem, px, etc...");
+	}
+	@if not $ratio {
+		@error("You need to have the sizes.#{$size} specified in order to interpolate the value to this size...");
+	}
+
+	// if no value, interpolate the default one with the size ratio
+	@if not $value or unitless($value) {
+		@return $default-size * $ratio;
+	}
+
+	// if not number
+	@if type-of($value) != number {
+		@error('You cannot interpolate the value "#{$value}" cause it is not a number...');
+	}
+
+	// default return the value
+	@return $value;
+}

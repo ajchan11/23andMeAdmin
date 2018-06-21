@@ -52,7 +52,7 @@
     "coffeekraken-s-interactive-demo-component": "^1.0.0",
     "coffeekraken-s-notification-component": "^1.0.0",
     "coffeekraken-s-share-component": "^1.0.0",
-    "coffeekraken-sugar": "^1.0.0",
+    "coffeekraken-sugar": "^1.0.14",
     "cookie-session": "^2.0.0-beta.1",
     "cryptr": "^2.0.0",
     "express": "^4.14.0",
