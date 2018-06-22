@@ -59,7 +59,7 @@
     "express-handlebars": "^3.0.0",
     "golden-layout": "^1.5.7",
     "imagemin-cli": "^3.0.0",
-    "lodash": "^4.17.2",
+    "lodash": "^4.17.10",
     "md5": "^2.2.1",
     "node-parallel": "^0.1.6",
     "rimraf": "^2.6.2",

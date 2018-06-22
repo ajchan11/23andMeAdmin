@@ -212,12 +212,23 @@ module.exports = function(config) {
 	});
 
 	app.get('/view/:path', function(req, res) {
-		console.log('something fired', req.params)
-		// var path = 'index.html';
 		var tPath = req.params.path
-		// return res.sendFile(route, {root: './views'});
-		// app.use(__express.static(__dirname + '/public'));
-		return res.sendFile(__path.join(__dirname, `../views/${tPath}`, 'index.html'));
+		var dirname = `./views/${tPath}`
+		if (__fs.existsSync(dirname)) {
+			return res.sendFile(__path.join(__dirname, `../views/${tPath}`, 'index.html'));
+		} else {
+			return res.sendFile(__path.join(__dirname, `../views/neato`, 'index.html'));
+		}
+	})
+
+	app.get('/view/:path/:query', function(req, res) {
+		var tPath = req.params.path
+		var dirname = `./views/${tPath}`
+		if (__fs.existsSync(dirname)) {
+			return res.sendFile(__path.join(__dirname, `../views/${tPath}`, 'index.html'));
+		} else {
+			return res.sendFile(__path.join(__dirname, `../views/neato`, 'index.html'));
+		}
 	})
 
 	// global route

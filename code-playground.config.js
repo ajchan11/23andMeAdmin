@@ -45,34 +45,19 @@ module.exports = {
 			data : 
 `<script id="mustacheTempalte_a" type="text/template">
 <div class="item">
-	<h1>Upcoming Shows</h1>
-	{{#shows}}
-		<ul>
-			<li><strong>Title:</strong> {{title}}</li>
-			<li><strong>Description:</strong> {{{description}}}</li>
-			<li><strong>Video:</strong> {{video}}</li>
-			<li><strong>Category:</strong> {{category}}</li>
-		</ul>
-	{{/shows}}
+	{{#data}}
+		<h2>Hi <span>{{name}},</span>
+		<br>
+		{{info}}
+		</h2>
+		<p>{{detail}}</p>
+		<img src="{{imgURL}}" />
+	{{/data}}
 </div>
 </script>
-
-<script id="mustacheTempalte_b" type="text/template">
-<div class="item">
-	<h1>Upcoming Shows</h1>
-	{{#shows}}
-		<ul>
-			<li><strong>Title:</strong> {{title}}</li>
-			<li><strong>Description:</strong> {{{description}}}</li>
-			<li><strong>Video:</strong> {{video}}</li>
-			<li><strong>Category:</strong> {{category}}</li>
-		</ul>
-	{{/shows}}
-</div>
-</script>
-
 
 <div class="target-output" data-template-chosen="a"></div>
+
 `
 		},
 
@@ -80,18 +65,29 @@ module.exports = {
 		css : {
 			language : 'css', // available : css / sass / scss / stylus
 			data : `
-
-				body {
-					background: linear-gradient(to left, #f46b45 , #eea849);
-				}
-				.card {
-					max-width : 400px;
-					background: white;
-				}
-				.card__content {
-					padding: 40px;
-					transform:translate3d(0,0,20px);
-				}
+			body {
+				font-family: -apple-system, BlinkMacSystemFont;
+				background-color: white;
+				padding: 20px;
+			}
+			h1 {
+				margin: 30px 0; 
+				font-weight: 300;
+				line-height: 40px;
+			}
+			h2 {
+				font-weight: 300;
+				line-height: 35px;
+			}
+			p {
+				line-height: 25px;
+			
+				font-weight: 300;
+				margin-bottom: 40px;
+			}
+			img {
+				width: 100%;
+			}
 			`
 		},
 
@@ -103,16 +99,14 @@ module.exports = {
 				var targetContainer = $(".target-output"),
 					templateDefined = $(".target-output").data("template-chosen"),
 					template = $("#mustacheTempalte_" + templateDefined).html();
-				var shows = { "shows": [{ "category": "children",
-						"description": "<a>A show</a> about a cake",
-						"title": "Strawberry Shortcake",
-						"video": "none"
-					}, { "category": "children",
-						"description": "A show about a ice",
-						"title": "Vanilla Ice",
-						"video": "none"
-					}] };
-				var html = Mustache.to_html(template, shows);
+				var data = { "data": [{ 
+						name: "Alex",
+						info: "Have you ever wondered how caffeine impacts the blood pressure for me?",
+						detail: "According to the American journal of cardiology men who drink Caffeine have increased blood pressure and do increased vascular resistance as opposed to increased cardio output.",
+						imgURL: "https://i.imgur.com/LMw9Wkj.png"
+					}] 
+				};
+				var html = Mustache.to_html(template, data);
 				$(targetContainer).html(html);
 			}
 			`
