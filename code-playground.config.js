@@ -46,7 +46,7 @@ module.exports = {
 `<script id="mustacheTempalte_a" type="text/template">
 <div class="item">
 	{{#data}}
-		<h2>Hi <span>{{name}},</span>
+		<h2>Hi <span class="blue">{{name}}</span>
 		<br>
 		{{info}}
 		</h2>
@@ -68,25 +68,35 @@ module.exports = {
 			body {
 				font-family: -apple-system, BlinkMacSystemFont;
 				background-color: white;
-				padding: 20px;
+				padding: 0 20px;
 			}
 			h1 {
-				margin: 30px 0; 
+				margin: 0 0 30px; 
 				font-weight: 300;
 				line-height: 40px;
 			}
 			h2 {
+				margin: 0 0 30px;
 				font-weight: 300;
 				line-height: 35px;
+				font-size: 24px;
+				line-height: 1.42;
 			}
 			p {
-				line-height: 25px;
-			
 				font-weight: 300;
 				margin-bottom: 40px;
+				font-size: 14px;
+				font-weight: 300;
+				line-height: 1.57;
+				color: #14bbe8;
 			}
 			img {
 				width: 100%;
+			}
+			.blue {
+				color: #14bbe8;
+				text-decoration: underline;
+				font-style: italic;
 			}
 			`
 		},
