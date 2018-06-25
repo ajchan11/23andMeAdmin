@@ -43,15 +43,30 @@ module.exports = {
 		html : {
 			language : 'html',
 			data : 
-`<script id="mustacheTempalte_a" type="text/template">
+`
+<script id="mustacheTempalte_a" type="text/template">
 <div class="item">
 	{{#data}}
-		<h2>Hi <span class="blue">{{name}}</span>
+		{{#isSexNotSet}}
+		{{/isSexNotSet}}
+		{{#isMale}}
+		<h2>Hi <span class="blue">{{name}},</span>
 		<br>
-		{{info}}
-		</h2>
-		<p>{{detail}}</p>
-		<img src="{{imgURL}}" />
+		Have you ever wondered how caffeine impacts blood pressure for men?
+	</h2>
+		<p>According to the American journal of cardiology men who drink Caffeine have increased blood pressure and do increased vascular resistance as opposed to increased cardio output.</p>
+		<img src="https://i.imgur.com/LMw9Wkj.png" />
+		{{/isMale}}
+		
+		{{#isFemale}}
+		<h2>Hi <span class="blue">{{name}},</span>
+		<br>
+		Have you ever wondered how caffeine impacts blood pressure for men?
+	</h2>
+		<p>According to the American journal of cardiology men who drink Caffeine have increased blood pressure and do increased vascular resistance as opposed to increased cardio output.</p>
+		<img src="https://i.imgur.com/LMw9Wkj.png" />
+		{{/isFemale}}	
+		
 	{{/data}}
 </div>
 </script>
@@ -96,7 +111,6 @@ module.exports = {
 			.blue {
 				color: #14bbe8;
 				text-decoration: underline;
-				font-style: italic;
 			}
 			`
 		},
@@ -105,19 +119,33 @@ module.exports = {
 		js : {
 			language : 'js', // available : js / coffeescript / typescript
 			data : `
-			window.onload = function() {
+			window.onload = function () {
+				var name = getParameterByName("name");
+				var isMale = getParameterByName("isMale");
+				var isFemale = getParameterByName("isFemale");
+				var isSexNotSet = getParameterByName("isSexNotSet");
 				var targetContainer = $(".target-output"),
 					templateDefined = $(".target-output").data("template-chosen"),
 					template = $("#mustacheTempalte_" + templateDefined).html();
-				var data = { "data": [{ 
-						name: "Alex",
-						info: "Have you ever wondered how caffeine impacts the blood pressure for me?",
-						detail: "According to the American journal of cardiology men who drink Caffeine have increased blood pressure and do increased vascular resistance as opposed to increased cardio output.",
-						imgURL: "https://i.imgur.com/LMw9Wkj.png"
-					}] 
+				var data = { "data": [{
+						name: name,
+						isMale: isMale,
+						isFemale: isFemale,
+						isSexNotSet: isSexNotSet
+					}]
 				};
 				var html = Mustache.to_html(template, data);
 				$(targetContainer).html(html);
+			};
+			
+			function getParameterByName(name, url) {
+				if (!url) url = window.location.href;
+				name = name.replace(/[\[\]]/g, "\\$&");
+				var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+					results = regex.exec(url);
+				if (!results) return null;
+				if (!results[2]) return '';
+				return decodeURIComponent(results[2].replace(/\+/g, " "));
 			}
 			`
 		}
