@@ -9,14 +9,24 @@ h1 {
 	line-height: 40px;
 }
 h2 {
+	margin: 0 0 30px;
 	font-weight: 300;
 	line-height: 35px;
+	font-size: 24px;
+	line-height: 1.42;
 }
 p {
-	line-height: 25px;
 	font-weight: 300;
-	margin-bottom: 20px;
+	margin-bottom: 40px;
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 1.57;
+	color: #14bbe8;
 }
 img {
 	width: 100%;
+}
+.blue {
+	color: #14bbe8;
+	text-decoration: underline;
 }
