@@ -21,12 +21,19 @@ p {
 	font-size: 14px;
 	font-weight: 300;
 	line-height: 1.57;
-	color: #14bbe8;
 }
 img {
 	width: 100%;
 }
 .blue {
 	color: #14bbe8;
+}
+.red {
+	color: #D21068;
+}
+.green {
+	color: #7ABD15;
+}
+.underline {
 	text-decoration: underline;
 }

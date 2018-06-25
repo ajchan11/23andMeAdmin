@@ -48,23 +48,26 @@ module.exports = {
 <div class="item">
 	{{#data}}
 		{{#isSexNotSet}}
+			<h1>Memory, Cognition and Caffeine?</h1>
+			<p class="green">The University of Barcelona has shown that caffeine may contribute to increase memory and cognition as we age.</p>
+			<img src="https://i.imgur.com/ex8tFnt.png">
 		{{/isSexNotSet}}
 		{{#isMale}}
-		<h2>Hi <span class="blue">{{name}},</span>
+		<h2>Hi <span class="blue underline">{{name}},</span>
 		<br>
 		Have you ever wondered how caffeine impacts blood pressure for men?
 	</h2>
-		<p>According to the American journal of cardiology men who drink Caffeine have increased blood pressure and do increased vascular resistance as opposed to increased cardio output.</p>
+		<p class="blue">According to the American journal of cardiology men who drink Caffeine have increased blood pressure and do increased vascular resistance as opposed to increased cardio output.</p>
 		<img src="https://i.imgur.com/LMw9Wkj.png" />
 		{{/isMale}}
 		
 		{{#isFemale}}
-		<h2>Hi <span class="blue">{{name}},</span>
+		<h2>Hi <span class="red underline">{{name}},</span>
 		<br>
-		Have you ever wondered how caffeine impacts blood pressure for men?
+		Have you ever wondered how caffeine impacts women ability to solve complex tests?
 	</h2>
-		<p>According to the American journal of cardiology men who drink Caffeine have increased blood pressure and do increased vascular resistance as opposed to increased cardio output.</p>
-		<img src="https://i.imgur.com/LMw9Wkj.png" />
+		<p class="red">Researchers at Bristol University in UK have shown that women who drink caffeine performed complex tasks better than women who did not.</p>
+		<img src="https://i.imgur.com/yl2GJcr.png" />
 		{{/isFemale}}	
 		
 	{{/data}}
@@ -103,13 +106,20 @@ module.exports = {
 				font-size: 14px;
 				font-weight: 300;
 				line-height: 1.57;
-				color: #14bbe8;
 			}
 			img {
 				width: 100%;
 			}
 			.blue {
 				color: #14bbe8;
+			}
+			.red {
+				color: #D21068;
+			}
+			.green {
+				color: #7ABD15;
+			}
+			.underline {
 				text-decoration: underline;
 			}
 			`
@@ -123,7 +133,7 @@ module.exports = {
 				var name = getParameterByName("name");
 				var isMale = getParameterByName("isMale");
 				var isFemale = getParameterByName("isFemale");
-				var isSexNotSet = getParameterByName("isSexNotSet");
+				var isSexNotSet = isMale || isFemale ? false : true;
 				var targetContainer = $(".target-output"),
 					templateDefined = $(".target-output").data("template-chosen"),
 					template = $("#mustacheTempalte_" + templateDefined).html();
@@ -137,15 +147,18 @@ module.exports = {
 				var html = Mustache.to_html(template, data);
 				$(targetContainer).html(html);
 			};
-			
-			function getParameterByName(name, url) {
-				if (!url) url = window.location.href;
-				name = name.replace(/[\[\]]/g, "\\$&");
-				var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-					results = regex.exec(url);
-				if (!results) return null;
-				if (!results[2]) return '';
-				return decodeURIComponent(results[2].replace(/\+/g, " "));
+
+			function getParameterByName(name, url = window.location.href) {
+				var keep = false
+				var query = url.split("query=")[1]
+				if (!query) return false
+				var results = query.split("&")
+				results.map(function(v) {
+					if (v.includes(name)) {
+						keep = v.split(name+'=')[1]
+					}
+				})
+				return keep
 			}
 			`
 		}

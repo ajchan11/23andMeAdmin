@@ -74,7 +74,7 @@ window.onload = function () {
 	var name = getParameterByName("name");
 	var isMale = getParameterByName("isMale");
 	var isFemale = getParameterByName("isFemale");
-	var isSexNotSet = getParameterByName("isSexNotSet");
+	var isSexNotSet = isMale || isFemale ? false : true;
 	var targetContainer = $(".target-output"),
 	    templateDefined = $(".target-output").data("template-chosen"),
 	    template = $("#mustacheTempalte_" + templateDefined).html();
@@ -88,15 +88,17 @@ window.onload = function () {
 	var html = Mustache.to_html(template, data);
 	$(targetContainer).html(html);
 };
-
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, "\\$&");
-	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-	    results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, " "));
+function getParameterByName(name, url = window.location.href) {
+	var keep = false;
+	var query = url.split("query=")[1];
+	if (!query) return false;
+	var results = query.split("&");
+	results.map(function (v) {
+		if (v.includes(name)) {
+			keep = v.split(name + '=')[1];
+		}
+	});
+	return keep;
 }
 
 /***/ })
